@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My CAS Portfolio</title>
+
+<!-- Google Font for Formal Look -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* -------------------
+   Global Styles
+------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Merriweather', serif;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* -------------------
+   Navigation
+------------------- */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.95);
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 15px 0;
+  z-index: 100;
+}
+
+nav a {
+  color: #e0e0e0;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #00aaff;
+}
+
+/* -------------------
+   Section Styles
+------------------- */
+section {
+  min-height: 100vh;
+  padding: 120px 40px 60px 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease;
+  position: relative;
+}
+
+section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -------------------
+   Hero Section
+------------------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 4em;
+  margin: 0.2em 0;
+}
+
+.hero p {
+  font-size: 1.5em;
+  margin: 0.5em 0;
+  color: #aaa;
+}
+
+.hero .logo {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  width: 80px;
+  height: auto;
+}
+
+/* -------------------
+   CAS Sections & Cards
+------------------- */
+.cas-header {
+  font-size: 2.5em;
+  margin-bottom: 1em;
+  color: #00aaff;
+  text-align: center;
+}
+
+.month-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.month-nav button {
+  background: #333;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.month-nav button.active, .month-nav button:hover {
+  background: #00aaff;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: #222;
+  padding: 20px;
+  border-radius: 16px;
+  width: 280px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #00aaff;
+}
+
+.card p {
+  color: #ccc;
+  font-size: 0.95em;
+  line-height: 1.5em;
+}
+
+/* -------------------
+   Floating Shapes
+------------------- */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  animation: floatShape linear infinite;
+}
+
+.circle { width: 100px; height: 100px; background: #0056a0; top: 10%; left: 15%; animation-duration: 20s;}
+.circle2 { width: 150px; height: 150px; background: #0077c0; top: 70%; left: 70%; animation-duration: 25s;}
+.square { width: 80px; height: 80px; background: #003366; border-radius: 12px; top: 50%; left: 40%; animation-duration: 30s;}
+
+@keyframes floatShape {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-60px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+
+/* -------------------
+   Responsive
+------------------- */
+@media(max-width: 768px){
+  .hero h1 { font-size: 3em; }
+  .hero p { font-size: 1.2em; }
+  .cards { flex-direction: column; align-items: center; }
+  .month-nav { gap: 5px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a href="#home" onclick="showSection('home')">Home</a>
+  <a href="#creativity" onclick="showSection('creativity')">Creativity</a>
+  <a href="#activity" onclick="showSection('activity')">Activity</a>
+  <a href="#service" onclick="showSection('service')">Service</a>
+</nav>
+
+<!-- Floating Shapes -->
+<div class="shape circle"></div>
+<div class="shape circle2"></div>
+<div class="shape square"></div>
+
+<!-- Home Section -->
+<section id="home" class="active hero in-view">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/IB_Logo.svg" alt="IB Logo" class="logo">
+  <h1>My CAS Portfolio</h1>
+  <p>Creativity – Activity – Service | International Baccalaureate</p>
+</section>
+
+<!-- Function to generate 12 months cards -->
+<script>
+const months = ["August","September","October","November","December","January","February","March","April","May","June","July"];
+</script>
+
+<!-- CAS Section Template Function -->
+<script>
+function generateCASSection(id){
+  document.write('<section id="'+id+'">');
+  document.write('<div class="cas-header">'+id.charAt(0).toUpperCase() + id.slice(1)+'</div>');
+  document.write('<div class="month-nav">');
+  months.forEach((month,i)=>{
+    document.write('<button class="'+(i===0?'active':'')+'" onclick="showMonth(\''+id+'\',\''+month.toLowerCase()+'\')">'+month+'</button>');
+  });
+  document.write('</div>');
+  months.forEach((month,i)=>{
+    document.write('<div id="'+id+'-'+month.toLowerCase()+'" class="cards" style="display:'+(i===0?'flex':'none')+';">');
+    document.write('<div class="card"><h3>'+month+' Project 1</h3><p>Reflection content placeholder for '+month+' '+id+'.</p></div>');
+    document.write('<div class="card"><h3>'+month+' Project 2</h3><p>Another reflection placeholder.</p></div>');
+    document.write('</div>');
+  });
+  document.write('</section>');
+}
+
+generateCASSection('creativity');
+generateCASSection('activity');
+generateCASSection('service');
+</script>
+
+<script>
+// Navigation between sections
+function showSection(sectionId){
+  document.querySelectorAll('section').forEach(sec=>{
+    sec.classList.remove('active');
+  });
+  document.getElementById(sectionId).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Month tabs switching
+function showMonth(category, month){
+  months.forEach(m=>{
+    let div = document.getElementById(category+'-'+m.toLowerCase());
+    if(div) div.style.display='none';
+  });
+  document.getElementById(category+'-'+month).style.display='flex';
+  // Update button active state
+  document.querySelectorAll(`#${category} .month-nav button`).forEach(btn=> btn.classList.remove('active'));
+  document.querySelector(`#${category} .month-nav button[onclick*="${month}"]`).classList.add('active');
+}
+
+// Fade-in sections on scroll
+const sections = document.querySelectorAll('section');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in-view');
+    }
+  });
+}, { threshold: 0.2 });
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+</script>
+
+</body>
+</html>
